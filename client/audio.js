@@ -53,5 +53,7 @@ export const sfx = {
   bump: (big) => tone(big ? 140 : 220, 0.15, { type: "square", gain: big ? 0.1 : 0.04, slide: -70 }),
   fish: () => [880, 1175, 1568].forEach((f, i) => tone(f, 0.12, { type: "triangle", delay: i * 0.06 })),
   round: (mine) => (mine ? [523, 659, 784, 1047] : [392, 330, 262]).forEach((f, i) => tone(f, 0.2, { type: "triangle", delay: i * 0.1 })),
+  breach: () => noise(0.7, { gain: 0.2, freq: 500, q: 0.6 }),
+  chomp: () => (tone(160, 0.12, { type: "square", gain: 0.12, slide: -80 }), tone(120, 0.14, { type: "square", gain: 0.1, slide: -60, delay: 0.08 })),
   beep: (high) => tone(high ? 880 : 440, 0.12, { type: "square", gain: 0.05 }),
 };

@@ -28,6 +28,7 @@ const ui = {
 };
 
 const renderer = createRenderer();
+renderer.onSound((name) => (solo || online) && sfx[name]?.()); // the bot match behind the splash stays quiet
 const input = createInput();
 const hex = (n) => `#${n.toString(16).padStart(6, "0")}`;
 const BOT_NAMES = ["Waddles", "Pebble", "Flip", "Nugget", "Sleet", "Mochi", "Biscuit", "Gizmo"];
@@ -86,7 +87,7 @@ function playEvents(events, myId, nameOf) {
   for (const e of events) {
     if (e.t === "crack") sfx.crack();
     else if (e.t === "drop") sfx.drop();
-    else if (e.t === "fall") (renderer.splash(e.x, e.z), sfx.splash());
+    else if (e.t === "fall") (renderer.fall(e.x, e.z, e.id), sfx.splash());
     else if (e.t === "bump") (renderer.bump(e.x, e.z, e.big), sfx.bump(e.big));
     else if (e.t === "slide" && e.id === myId) sfx.slide();
     else if (e.t === "eat") sfx.fish();
@@ -108,6 +109,7 @@ function showMenu(message = "") {
   ui.find.disabled = !config.matchmakerUrl;
   ui.message.textContent = message || (config.matchmakerUrl ? "" : "Online play is not configured on this page.");
   document.body.classList.remove("in-match");
+  renderer.setMenuView(true);
   input.show(false);
 }
 
@@ -115,6 +117,7 @@ function showHud() {
   ui.menu.hidden = true;
   ui.hud.hidden = false;
   document.body.classList.add("in-match");
+  renderer.setMenuView(false);
   showContact(false);
   input.show(true);
 }
@@ -324,7 +327,7 @@ function attractFrame(dt) {
     attract.acc -= STEP;
     for (const p of world.players) if (!p.out) p.input = R.botInput(world, p, p.brain, STEP);
     for (const e of R.stepMatch(world, STEP)) {
-      if (e.t === "fall") renderer.splash(e.x, e.z);
+      if (e.t === "fall") renderer.fall(e.x, e.z, e.id);
       else if (e.t === "bump" && e.big) renderer.bump(e.x, e.z, true);
     }
     if (R.matchWinner(world) && !world.roundLive && world.pause <= 0) R.startMatch(world);
