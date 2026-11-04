@@ -64,7 +64,13 @@ addEventListener("pagehide", cancelMatchmaking);
 export async function joinServer(url, name, ticket, { onState, onClose, onStatus }) {
   const { conn, welcome } = await connect(url, { name, ticket }, { onStatus });
   conn.on("state", onState);
-  conn.onclose = onClose;
+  // Heartbeat on a timer, not the render loop: a hidden tab gets no animation frames (so no
+  // inputs) but its timers still run, so the server keeps the player in the match.
+  const heartbeat = setInterval(() => conn.send({ t: "ping" }), 5000);
+  conn.onclose = (e) => {
+    clearInterval(heartbeat);
+    onClose(e);
+  };
   let lastInput = "";
   let lastInputAt = 0;
   return {
