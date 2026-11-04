@@ -16,6 +16,10 @@ const ui = {
   local: $("local"),
   cancel: $("cancel"),
   status: $("status"),
+  queue: $("queue"),
+  queueTime: $("queue-time"),
+  message: $("message"),
+  secondary: document.querySelector(".secondary"),
   board: $("board"),
   banner: $("banner"),
   big: $("big"),
@@ -97,11 +101,12 @@ function playEvents(events, myId, nameOf) {
 function showMenu(message = "") {
   ui.menu.hidden = false;
   ui.hud.hidden = true;
-  ui.solo.hidden = ui.find.hidden = false;
+  ui.find.hidden = ui.secondary.hidden = false;
   ui.local.hidden = !isLocalPage;
-  ui.cancel.hidden = true;
+  ui.queue.hidden = true;
+  clearInterval(queueTimer);
   ui.find.disabled = !config.matchmakerUrl;
-  ui.status.textContent = message || (config.matchmakerUrl ? "" : "Online play is not configured on this page.");
+  ui.message.textContent = message || (config.matchmakerUrl ? "" : "Online play is not configured on this page.");
   document.body.classList.remove("in-match");
   input.show(false);
 }
@@ -205,12 +210,23 @@ const config = await loadConfig();
 const isLocalPage = ["localhost", "127.0.0.1"].includes(location.hostname);
 let online = null; // { server, state, banner, url }
 let searching = false;
+let queueTimer = 0;
 
 async function playOnline(getServer) {
   unlockAudio();
   localStorage.setItem("ice-name", ui.name.value);
-  ui.solo.hidden = ui.find.hidden = ui.local.hidden = true;
-  ui.cancel.hidden = false;
+  ui.find.hidden = ui.secondary.hidden = true;
+  ui.queue.hidden = false;
+  ui.message.textContent = "";
+  // Time in the queue, so a wait never looks frozen.
+  const queuedAt = performance.now();
+  clearInterval(queueTimer);
+  const tickQueue = () => {
+    const s = Math.floor((performance.now() - queuedAt) / 1000);
+    ui.queueTime.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  };
+  tickQueue();
+  queueTimer = setInterval(tickQueue, 1000);
   searching = true;
   const status = (text) => (ui.status.textContent = text);
   try {
@@ -236,10 +252,13 @@ async function playOnline(getServer) {
     });
     if (!searching) return session.server.close(); // cancelled while connecting
     searching = false;
+    clearInterval(queueTimer);
     online = session;
     renderer.clear();
     showHud();
   } catch (err) {
+    // After Cancel the SDK rejects with "Matchmaking stopped": the menu already says "Cancelled."
+    if (!searching) return;
     searching = false;
     showMenu(String(err?.message ?? err));
   }
@@ -284,12 +303,43 @@ ui.quit.onclick = () => {
   showMenu();
 };
 
+// ---- splash: four bots play behind the menu ------------------------------------------------------
+
+const attract = { world: R.createWorld(), names: {}, acc: 0, live: false };
+for (let i = 1; i <= 4; i++) {
+  R.addPlayer(attract.world, { id: 100 + i, bot: true });
+  attract.names[100 + i] = BOT_NAMES[i * 2 - 1];
+}
+R.startMatch(attract.world);
+
+function attractFrame(dt) {
+  const { world } = attract;
+  if (!attract.live) {
+    renderer.clear(); // the solo or online match left its own waddlers on screen
+    attract.live = true;
+  }
+  const STEP = 1 / 60;
+  attract.acc = Math.min(attract.acc + dt, 0.25);
+  while (attract.acc >= STEP) {
+    attract.acc -= STEP;
+    for (const p of world.players) if (!p.out) p.input = R.botInput(world, p, p.brain, STEP);
+    for (const e of R.stepMatch(world, STEP)) {
+      if (e.t === "fall") renderer.splash(e.x, e.z);
+      else if (e.t === "bump" && e.big) renderer.bump(e.x, e.z, true);
+    }
+    if (R.matchWinner(world) && !world.roundLive && world.pause <= 0) R.startMatch(world);
+  }
+  renderer.sync(view(world, attract.names), dt);
+}
+
 // ---- main loop -------------------------------------------------------------------------------
 
 let last = performance.now();
 function frame(dt) {
   if (solo) soloFrame(dt);
   else if (online) onlineFrame(dt);
+  else attractFrame(dt); // splash, and while searching for a match
+  if (solo || online) attract.live = false;
   renderer.frame(dt);
 }
 function loop(now) {

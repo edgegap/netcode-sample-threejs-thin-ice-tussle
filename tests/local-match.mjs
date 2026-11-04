@@ -39,6 +39,9 @@ if (!total) problems.push("no rounds won");
 if (a.players.length !== 4) problems.push(`expected 4 drones (2 players + 2 bots), saw ${a.players.length}`);
 
 console.log(`result: ${a.result?.winner}; scores: ${scores.map((p) => `${p.name} ${p.score}`).join(", ")}`);
-server?.kill("SIGTERM");
+if (server) {
+  server.kill("SIGTERM");
+  await new Promise((r) => server.once("exit", r)); // let it close its stdout before we exit
+}
 console.log(problems.length ? `FAIL\n - ${problems.join("\n - ")}` : "PASS");
 process.exit(problems.length ? 1 : 0);
