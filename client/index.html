@@ -6,10 +6,16 @@
   <meta name="theme-color" content="#a9d8f2" />
   <title>Thin Ice Tussle</title>
   <link rel="stylesheet" href="./style.css" />
+  <!-- Three.js and the Edgegap JS SDK from a CDN, pinned. The integrity hash makes the browser
+       refuse a modified SDK file. -->
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "@edgegap/sdk": "https://cdn.jsdelivr.net/npm/@edgegap/sdk@1.1.0/dist/browser/edgegap.js"
+      },
+      "integrity": {
+        "https://cdn.jsdelivr.net/npm/@edgegap/sdk@1.1.0/dist/browser/edgegap.js": "sha384-U8KQMl3e8xF4aAIJJMXV8IdkCKWiHSQhHISsedbG4z/L99dNOq5FoRlMgPDYgNUF"
       }
     }
   </script>
@@ -20,11 +26,14 @@
       <h1>Thin Ice Tussle</h1>
       <p class="tagline">The ice is breaking up. Shove everyone else into the sea.</p>
       <label>Name <input id="name" maxlength="16" autocomplete="off" /></label>
-      <div class="bots">Bots
+      <div class="bots">Bots (solo)
         <button data-bots="1">1</button><button data-bots="2">2</button><button data-bots="3">3</button>
       </div>
       <div class="buttons">
-        <button id="solo" class="primary">Play vs bots</button>
+        <button id="find" class="primary">Find match</button>
+        <button id="solo">Play vs bots</button>
+        <button id="local" hidden>Local server :7777</button>
+        <button id="cancel" hidden>Cancel</button>
       </div>
       <p id="status" class="status"></p>
       <p class="help">Move: WASD / arrows, or drag on the screen. Belly-slide: Space / Shift, or the SLIDE button: slide into someone to shove them. Shaking ice is about to drop. A golden fish makes your next slide a mega shove. Last one standing wins the round, first to 4 rounds wins.</p>
