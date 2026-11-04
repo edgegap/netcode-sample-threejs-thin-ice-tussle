@@ -102,14 +102,27 @@ function showMenu(message = "") {
   ui.cancel.hidden = true;
   ui.find.disabled = !config.matchmakerUrl;
   ui.status.textContent = message || (config.matchmakerUrl ? "" : "Online play is not configured on this page.");
+  document.body.classList.remove("in-match");
   input.show(false);
 }
 
 function showHud() {
   ui.menu.hidden = true;
   ui.hud.hidden = false;
+  document.body.classList.add("in-match");
+  showContact(false);
   input.show(true);
 }
+
+// Contact Edgegap: a button at the bottom that opens Discord and email links.
+const contactBtn = $("contact-btn");
+const contactCard = $("contact-card");
+function showContact(open) {
+  contactCard.hidden = !open;
+  contactBtn.setAttribute("aria-expanded", String(open));
+}
+contactBtn.onclick = () => showContact(contactCard.hidden);
+addEventListener("keydown", (e) => e.key === "Escape" && showContact(false));
 
 // ---- solo match against bots -----------------------------------------------------------------
 

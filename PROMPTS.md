@@ -34,3 +34,36 @@ Shrinking Ice Floe was picked because it holds up on mobile data: the ice is sli
 ### 5. Recommended: phone fixes
 
 > On my phone the penguins are tiny and the camera cuts off the ice. Pull the camera back so the whole sheet fits, make the penguins bigger, and add a thumb-stick and a big SLIDE button.
+
+## Phase 2: online multiplayer on Edgegap (tag `after`)
+
+### 6. Recommended: the one prompt that starts the multiplayer work
+
+> Make this game online multiplayer on Edgegap. Use the Edgegap MCP and its edgegap-threejs skill. Keep the solo mode, add a Find Match button, 2 to 4 players per match, bots fill empty seats. Ask me before you create anything in my Edgegap account.
+
+What the agent did with it, in order:
+
+1. Loaded `edgegap-threejs`, `edgegap-server-design` and `edgegap-local-testing` through the MCP (`edgegap_get_skill`).
+2. Copied the skill's server templates and wrote `server/game.js` on top of the same `client/rules.js` the solo mode runs.
+3. Added Find Match to the page with the Edgegap JS SDK.
+4. Tested without Edgegap: `tests/local-match.mjs` and `tests/parity.sh`, then a browser tab and a headless player on a local server.
+
+### 7. Given: the account
+
+> create a github repo (private for now). you can create edgegap resources, we will leave the game and the matchmaker up and running non stop if we're succesful so keep this in mind
+
+The agent pushed the image, created the app and its version with restart policy `never` and only-matched-players-may-join, and wrote the matchmaker config with `inspect` off. The developer added the registry login to the version and created the matchmaker from `matchmaker/floe.json`.
+
+### 8. Given: keep costs down, and a way to reach us
+
+> You can get game servers to stop quickly once there's no player. only the matchmaker will run non-stop. Each deployment will stop. Set a matchmaker configuration so that no one can spam the matchmaker with tickets to create a ton of deployments. We'd ideally like to have a maximum of 2-3 deployments running at the same time when there are players, no more. Add a contact us button in the game at the bottom for people to reach out to edgegap (through our discord or email address info@edgegap.com).
+
+Servers now stop 10 s after the last player leaves and 45 s after starting if nobody connects. A Contact Edgegap button sits at the bottom of the screen. The agent found that Edgegap's matchmaker has no setting for a deployment cap or per-IP ticket limits, and that Server Browser has no maximum either, so it proposed a small gate service in front of the matchmaker.
+
+> could we do it with server browser?
+
+> lets not put cap for now, lets get it running first.
+
+### 9. Recommended: prove it
+
+> Run the end-to-end test through the matchmaker, then try Find Match from two browser tabs, leave, and check the server stops right away. Make sure nothing is left running.

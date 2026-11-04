@@ -5,6 +5,6 @@
 // The Auth Token is the matchmaker's client token: it is made to ship in game clients and gives
 // no access to the Edgegap account. Never put the Edgegap API token here.
 export default {
-  matchmakerUrl: "",
-  matchmakerToken: "",
+  matchmakerUrl: "https://om-t4igkiic0e.edgegap.net",
+  matchmakerToken: "9c158aba-244f-45a9-ba72-a0fede3f8163",
 };
