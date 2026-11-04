@@ -243,11 +243,11 @@ async function playOnline(getServer) {
         if (banner) session.banner = banner;
         countdownBeep(msg);
       },
-      onClose: () => {
+      onClose: (e) => {
         const finished = online?.state?.phase === "over";
         online = null;
         renderer.clear();
-        showMenu(finished ? "Match finished. Play again?" : "Disconnected from the server.");
+        showMenu(finished ? "Match finished. Play again?" : e?.code === 4000 ? "You were away too long, so you left the match." : "Disconnected from the server.");
       },
     });
     if (!searching) return session.server.close(); // cancelled while connecting
