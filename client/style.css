@@ -50,3 +50,16 @@ canvas { display: block; }
 }
 .hud .board li b { letter-spacing: 2px; }
 .hud .board li.out { opacity: .4; text-decoration: line-through; }
+
+/* Contact Edgegap: bottom of the screen in the menu, a small pill bottom-left during a match. */
+.contact { pointer-events: auto; position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 3; }
+.contact > button { padding: 8px 16px; border: 0; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer;
+  background: rgba(13,43,69,.7); color: #fff; }
+.contact-card { width: min(300px, calc(100vw - 32px)); padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.96);
+  box-shadow: 0 10px 30px rgba(13,43,69,.35); display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.contact-card p { margin: 0 0 2px; color: #3d5a73; }
+.contact-card a { display: block; padding: 9px 12px; border-radius: 8px; background: #dcebf6; color: #0d2b45; font-weight: 600; text-decoration: none; text-align: center; }
+.contact-card a:first-of-type { background: #5865f2; color: #fff; }
+body.in-match .contact { left: 12px; bottom: 12px; transform: none; align-items: flex-start; }
+body.in-match .contact > button { padding: 6px 12px; font-size: 12px; opacity: .85; }
