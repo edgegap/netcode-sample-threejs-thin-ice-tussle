@@ -1,0 +1,8 @@
+node_modules
+.git
+.github
+tests
+matchmaker
+*.md
+client/*
+!client/rules.js
