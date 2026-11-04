@@ -1,8 +1,22 @@
 # Thin Ice Tussle: a vibe-coded game made online multiplayer on Edgegap
 
+## ▶ Play it now: [edgegap.github.io/netcode-sample-threejs-thin-ice-tussle](https://edgegap.github.io/netcode-sample-threejs-thin-ice-tussle/)
+
+[![Thin Ice Tussle: four waddlers on a breaking hex ice sheet](docs/images/match.jpg)](https://edgegap.github.io/netcode-sample-threejs-thin-ice-tussle/)
+
+**This is a live game with a live matchmaker.** Open the link, click **Play online** and you join a real queue on Edgegap's matchmaker:
+
+- Players who queue around the same time land in the same match (2 to 4 players). If nobody else is searching, you get a match against bots after about 20 seconds.
+- Every match starts its own game server on Edgegap, placed near the players, and that server stops itself as soon as the match ends or everyone leaves. Only the matchmaker runs all the time.
+- Grab a friend: open the link on two devices (phone and laptop, different networks are fine) and click **Play online** at the same time.
+- No account and no install; it runs in the browser on desktop and mobile. **Practice vs bots** works offline, without the matchmaker.
+- Questions, or want this for your own game? Use the **Contact Edgegap** button in the game, [our Discord](https://discord.gg/MmJf8fWjnt), or info@edgegap.com.
+
+## What this is
+
 Thin Ice Tussle is a small Three.js browser game. Up to four waddlers slide around a sheet of hexagonal ice that breaks up from the edge inward, and belly-slide into each other to shove rivals into the sea. Last one standing wins the round; first to 4 rounds wins. It was first built as a single-player game against bots, the way a vibe coder would build it. Then an AI agent (Claude Code) with the Edgegap MCP server connected turned it into online multiplayer: each match runs on its own authoritative server, placed near its players, started by the Edgegap matchmaker and stopped as soon as the match is over or empty. Every line in this repo was written by the agent; the prompts are in [PROMPTS.md](PROMPTS.md).
 
-**Play:** GitHub Pages once the repo is public (Find Match for online, or Play vs bots). Works on phones and desktops.
+Fall in and an orca will be waiting.
 
 ## Before and after
 
