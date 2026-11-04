@@ -8,7 +8,7 @@
 
 - Players who queue around the same time land in the same match (2 to 4 players). If nobody else is searching, you get a match against bots after about 20 seconds.
 - Every match starts its own game server on Edgegap, placed near the players, and that server stops itself as soon as the match ends or everyone leaves. Only the matchmaker runs all the time.
-- Grab a friend: open the link on two devices (phone and laptop, different networks are fine) and click **Play online** at the same time.
+- Grab a friend: open the link on two devices (a phone and a laptop work) and click **Play online** within a few seconds of each other.
 - No account and no install; it runs in the browser on desktop and mobile. **Practice vs bots** works offline, without the matchmaker.
 - Questions, or want this for your own game? Use the **Contact Edgegap** button in the game, [our Discord](https://discord.gg/MmJf8fWjnt), or info@edgegap.com.
 
