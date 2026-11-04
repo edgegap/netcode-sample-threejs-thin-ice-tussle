@@ -2,7 +2,7 @@
 
 ## ▶ Play it now: [edgegap.github.io/netcode-sample-threejs-thin-ice-tussle](https://edgegap.github.io/netcode-sample-threejs-thin-ice-tussle/)
 
-[![Thin Ice Tussle: four waddlers on a breaking hex ice sheet](docs/images/match.jpg)](https://edgegap.github.io/netcode-sample-threejs-thin-ice-tussle/)
+[![Make your vibe-coded game multiplayer: Thin Ice Tussle, a three.js game built by an AI agent, running online matches on Edgegap dedicated servers.](docs/images/card.jpg)](https://edgegap.github.io/netcode-sample-threejs-thin-ice-tussle/)
 
 **This is a live game with a live matchmaker.** Open the link, click **Play online** and you join a real queue on Edgegap's matchmaker:
 
