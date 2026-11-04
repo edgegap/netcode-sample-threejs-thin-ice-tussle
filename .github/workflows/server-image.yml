@@ -31,7 +31,7 @@ jobs:
       - name: Local match test (two headless players, no Edgegap)
         run: node tests/local-match.mjs
         env:
-          MATCH_SECONDS: "20"
+          MATCH_SECONDS: "90"
 
       - name: Image tag
         id: tag

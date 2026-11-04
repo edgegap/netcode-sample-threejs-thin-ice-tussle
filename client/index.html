@@ -22,21 +22,34 @@
 </head>
 <body>
   <div class="ui">
-    <div class="menu" id="menu" hidden>
+    <div class="menu splash" id="menu" hidden>
+      <p class="kicker">Online multiplayer · 2 to 4 players · free in your browser</p>
       <h1>Thin Ice Tussle</h1>
       <p class="tagline">The ice is breaking up. Shove everyone else into the sea.</p>
-      <label>Name <input id="name" maxlength="16" autocomplete="off" /></label>
-      <div class="bots">Bots (solo)
-        <button data-bots="1">1</button><button data-bots="2">2</button><button data-bots="3">3</button>
+      <label>Your name <input id="name" maxlength="16" autocomplete="off" /></label>
+      <button id="find" class="primary play">Play online</button>
+      <div id="queue" class="queue" hidden>
+        <span class="spinner"></span>
+        <span id="status" class="status"></span>
+        <span id="queue-time" class="queue-time"></span>
+        <button id="cancel">Cancel</button>
       </div>
-      <div class="buttons">
-        <button id="find" class="primary">Find match</button>
-        <button id="solo">Play vs bots</button>
+      <p id="message" class="status-msg"></p>
+      <div class="buttons secondary">
+        <button id="solo">Practice vs bots</button>
+        <span class="bots"><button data-bots="1">1</button><button data-bots="2">2</button><button data-bots="3">3</button></span>
         <button id="local" hidden>Local server :7777</button>
-        <button id="cancel" hidden>Cancel</button>
       </div>
-      <p id="status" class="status"></p>
-      <p class="help">Move: WASD / arrows, or drag on the screen. Belly-slide: Space / Shift, or the SLIDE button: slide into someone to shove them. Shaking ice is about to drop. A golden fish makes your next slide a mega shove. Last one standing wins the round, first to 4 rounds wins.</p>
+      <details class="how-wrap">
+        <summary>How to play</summary>
+      <ul class="how">
+        <li><b>Move</b> WASD / arrows, or drag anywhere on a phone</li>
+        <li><b>Belly-slide</b> Space / Shift, or SLIDE: hit someone to shove them</li>
+        <li><b>Shaking ice</b> is about to drop. A golden fish makes your next slide a mega shove</li>
+        <li><b>Last one standing</b> wins the round, first to 4 rounds wins</li>
+      </ul>
+      </details>
+      <p class="made">Each match runs on its own server near its players, on <a href="https://edgegap.com" target="_blank" rel="noopener">Edgegap</a>. Built by an AI agent with the Edgegap MCP.</p>
     </div>
     <div class="hud" id="hud" hidden>
       <ol class="board" id="board"></ol>

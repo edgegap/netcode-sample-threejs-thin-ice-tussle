@@ -63,3 +63,41 @@ canvas { display: block; }
 .contact-card a:first-of-type { background: #5865f2; color: #fff; }
 body.in-match .contact { left: 12px; bottom: 12px; transform: none; align-items: flex-start; }
 body.in-match .contact > button { padding: 6px 12px; font-size: 12px; opacity: .85; }
+
+/* Splash: the menu is the landing page; a live bot match plays behind it. */
+.menu.splash { width: min(460px, calc(100% - 32px)); text-align: center; padding: 26px 24px 20px; background: rgba(255,255,255,.86); }
+.splash .kicker { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #3a86ff; }
+.splash h1 { font-size: clamp(34px, 9vw, 46px); margin: 0 0 4px; }
+.splash label { justify-content: center; margin: 14px 0 12px; }
+.splash label input { max-width: 220px; text-align: center; }
+.splash .play { display: block; width: 100%; padding: 16px; font-size: 20px; border-radius: 12px; box-shadow: 0 8px 24px rgba(58,134,255,.4); }
+.splash .play:not(:disabled):hover { filter: brightness(1.07); }
+.splash .queue { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 10px; margin: 12px 0 4px; }
+.splash .queue .status { margin: 0; min-height: 0; color: #0d2b45; font-weight: 600; }
+.splash .queue-time { font-variant-numeric: tabular-nums; color: #4f6b82; }
+.splash .queue button { padding: 6px 12px; font-size: 13px; }
+.spinner { width: 16px; height: 16px; border: 3px solid #b6cfe2; border-top-color: #3a86ff; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.splash .secondary { justify-content: center; align-items: center; margin: 14px 0 4px; }
+.splash .secondary .bots { display: inline-flex; gap: 4px; margin: 0; }
+.splash .secondary .bots button { width: 34px; padding: 7px 0; font-size: 13px; }
+.splash .how { list-style: none; margin: 14px 0 8px; padding: 0; text-align: left; font-size: 13px; color: #4f6b82; line-height: 1.5; }
+.splash .how b { color: #0d2b45; }
+.splash .made { margin: 8px 0 0; font-size: 12px; color: #4f6b82; }
+.splash .made a { color: #3a86ff; }
+.splash > .status-msg { margin: 10px 0 0; color: #c2410c; min-height: 1.2em; }
+@media (max-height: 700px) { .splash .how { display: none; } }
+.splash .how-wrap { margin: 12px 0 4px; text-align: left; }
+.splash .how-wrap summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #3a86ff; text-align: center; }
+.splash .how { margin: 8px 0 0; }
+.menu.splash { background: rgba(255,255,255,.82); backdrop-filter: blur(3px); }
+/* Leave the live bot match visible: card on the left on wide screens, a bottom sheet on phones. */
+@media (orientation: landscape) and (min-width: 820px) {
+  .menu.splash { left: max(24px, 5vw); transform: translateY(-50%); width: 400px; }
+}
+@media (orientation: portrait) {
+  .menu.splash { top: auto; bottom: 58px; transform: translateX(-50%); padding: 18px 18px 14px; }
+  .splash h1 { font-size: 32px; }
+  .splash .kicker { font-size: 11px; }
+}
+@media (max-height: 700px) { .splash .how-wrap { display: none; } }
