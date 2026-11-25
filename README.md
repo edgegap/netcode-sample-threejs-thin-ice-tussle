@@ -28,7 +28,7 @@ The game rules (`client/rules.js`) did not change. In the `after` version the se
 
 ## Do this with your own game
 
-1. Connect the Edgegap MCP server to your agent (Claude Code, Codex, Cursor, ChatGPT...): `https://mcp.edgegap.dev/mcp`, or locally with `npx @edgegap/mcp`. It needs an Edgegap API token, which stays in the agent's settings and never goes into your game.
+1. Connect the Edgegap MCP server to your agent (Claude Code, Codex, Cursor, ChatGPT...): `https://mcp.edgegap.com/mcp`, or locally with `npx @edgegap/mcp`. It needs an Edgegap API token, which stays in the agent's settings and never goes into your game.
 2. Open your game's folder and give the agent one prompt, for example:
 
    > Make this game online multiplayer on Edgegap. Use the Edgegap MCP and its edgegap-threejs skill. Keep the solo mode, add a Find Match button. Ask me before you create anything in my Edgegap account.
